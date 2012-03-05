@@ -1,3 +1,6 @@
-A GUI written in java to burn xbox360 backups on linux
+A GUI written in java to burn xbox360 backups on linux, by go2jimmys.
 
 The program uses growisofs. A command line program.
+
+In order to compile jx360burner, you can either import it to Netbeans,
+or alternatively you can install ant and run "ant" from within the repository.
