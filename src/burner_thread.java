@@ -72,7 +72,7 @@ public class burner_thread implements Runnable{
     }
     
     public void interrupt() {
-        if(t.isAlive())
+        if(!finished)
         p.destroy();
     }
     
