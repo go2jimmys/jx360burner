@@ -68,6 +68,8 @@ public class burner_thread implements Runnable{
             
         } catch (IOException ex) {
             Logger.getLogger(burner_thread.class.getName()).log(Level.SEVERE, null, ex);
+            burner.makeburNull();
+            burner.enableBurnButton();
         }
         
     }
