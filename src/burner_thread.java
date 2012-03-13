@@ -62,6 +62,7 @@ public class burner_thread implements Runnable{
             
             finished = true;
             
+            burner.makeburNull();
             burner.enableBurnButton();
             
             
@@ -72,8 +73,11 @@ public class burner_thread implements Runnable{
     }
     
     public void interrupt() {
-        if(!finished)
-        p.destroy();
+        if(!finished){
+            p.destroy();
+            burner.makeburNull();
+        }
+        
     }
     
     public boolean getFinished(){

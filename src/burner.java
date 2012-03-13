@@ -416,7 +416,7 @@ private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
     private void jbcancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbcancelActionPerformed
         // TODO add your handling code here:
         
-        if(bur!=null)
+        if(bur!=null)            
         if(!bur.getFinished()){
            int choice =  JOptionPane.showConfirmDialog(this,"Process is still running! Terminate?","WARNING!",JOptionPane.OK_CANCEL_OPTION,JOptionPane.ERROR_MESSAGE);
            if(choice  ==  JOptionPane.OK_OPTION)
@@ -426,6 +426,10 @@ private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
             
     }//GEN-LAST:event_jbcancelActionPerformed
 
+    public static void makeburNull(){
+        bur=null;
+    }
+    
 
     /**
      * @param args the command line arguments
@@ -442,7 +446,7 @@ private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
     private String[] speeds ={"2","2.4","4","6","8","16"},cm;
     private String ppath,fname,path,dev,speed;
     isoFilter isof = new isoFilter();
-    burner_thread bur=null;
+    static burner_thread bur=null;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JFileChooser fc;
