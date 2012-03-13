@@ -21,6 +21,7 @@ public class burner_thread implements Runnable{
     String comm[];
     File pp;
     BufferedReader in,er;
+    boolean finished = false;
     
     public burner_thread(String[] s, String ppath){
         t = new Thread(this, "thead");
@@ -58,6 +59,8 @@ public class burner_thread implements Runnable{
                 burner.showerrline(line);
             }
             
+            finished = true;
+            
             burner.enableBurnButton();
             
             
@@ -65,6 +68,15 @@ public class burner_thread implements Runnable{
             Logger.getLogger(burner_thread.class.getName()).log(Level.SEVERE, null, ex);
         }
         
+    }
+    
+    public void interrupt() {
+        if(t.isAlive())
+        t.interrupt();
+    }
+    
+    public boolean getFinished(){
+        return finished;
     }
     
     public BufferedReader get_out(){

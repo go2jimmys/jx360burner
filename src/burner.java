@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
 
 /*
  * To change this template, choose Tools | Templates
@@ -27,7 +28,7 @@ public class burner extends javax.swing.JFrame {
     public burner() {
         initComponents();
         fc = new JFileChooser();
-        
+        fc.setFileFilter(isof);
     }
 
 
@@ -47,6 +48,7 @@ public class burner extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         outputTA = new javax.swing.JTextArea();
         jButton5 = new javax.swing.JButton();
+        jbcancel = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         location = new javax.swing.JTextField();
         open = new javax.swing.JButton();
@@ -72,17 +74,19 @@ public class burner extends javax.swing.JFrame {
         outputTA.setColumns(20);
         outputTA.setEditable(false);
         outputTA.setRows(5);
-        outputTA.addCaretListener(new javax.swing.event.CaretListener() {
-            public void caretUpdate(javax.swing.event.CaretEvent evt) {
-                outputTACaretUpdate(evt);
-            }
-        });
         jScrollPane1.setViewportView(outputTA);
 
         jButton5.setText("clear");
         jButton5.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton5ActionPerformed(evt);
+            }
+        });
+
+        jbcancel.setText("Cancel");
+        jbcancel.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbcancelActionPerformed(evt);
             }
         });
 
@@ -95,7 +99,8 @@ public class burner extends javax.swing.JFrame {
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 466, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(jbcancel)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jButton5)))
                 .addContainerGap())
         );
@@ -105,7 +110,9 @@ public class burner extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 284, Short.MAX_VALUE)
                 .addGap(18, 18, 18)
-                .addComponent(jButton5)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton5)
+                    .addComponent(jbcancel))
                 .addContainerGap())
         );
 
@@ -355,7 +362,7 @@ private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
     File f = new File(location.getText());
     
     if(f.exists()){
-        if(f.getName().endsWith(".iso")){
+        if(f.getName().endsWith(".iso")||f.getName().endsWith(".ISO")){
             
             outputTA.setText("");
             ppath = f.getParent();
@@ -400,19 +407,24 @@ private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
         
     }//GEN-LAST:event_jButton4ActionPerformed
 
-    private void outputTACaretUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:event_outputTACaretUpdate
-
-        
-        
-        
-        // TODO add your handling code here:
-    }//GEN-LAST:event_outputTACaretUpdate
-
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
         // TODO add your handling code here:
         outputTA.setText("");
         
     }//GEN-LAST:event_jButton5ActionPerformed
+
+    private void jbcancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbcancelActionPerformed
+        // TODO add your handling code here:
+        
+        if(bur!=null)
+        if(!bur.getFinished()){
+           int choice =  JOptionPane.showConfirmDialog(this,"Process is still running! Terminate?","WARNING!",JOptionPane.OK_CANCEL_OPTION,JOptionPane.ERROR_MESSAGE);
+           if(choice  ==  JOptionPane.OK_OPTION)
+               bur.interrupt();
+            
+        }
+            
+    }//GEN-LAST:event_jbcancelActionPerformed
 
 
     /**
@@ -429,8 +441,8 @@ private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
     
     private String[] speeds ={"2","2.4","4","6","8","16"},cm;
     private String ppath,fname,path,dev,speed;
-    
-    burner_thread bur;
+    isoFilter isof = new isoFilter();
+    burner_thread bur=null;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JFileChooser fc;
@@ -450,6 +462,7 @@ private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
     private javax.swing.JRadioButton jRadioButton3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextField jTextField1;
+    private javax.swing.JButton jbcancel;
     private javax.swing.JTextField location;
     private javax.swing.JButton open;
     private static javax.swing.JTextArea outputTA;
