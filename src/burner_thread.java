@@ -21,6 +21,7 @@ public class burner_thread implements Runnable{
     String comm[];
     File pp;
     BufferedReader in,er;
+     Process p;
     boolean finished = false;
     
     public burner_thread(String[] s, String ppath){
@@ -39,7 +40,7 @@ public class burner_thread implements Runnable{
             
             burner.disableBurnButton();
             
-            Process p = Runtime.getRuntime().exec(comm,null,pp);
+            p = Runtime.getRuntime().exec(comm,null,pp);
             in = new BufferedReader(  
                                 new InputStreamReader(p.getInputStream()));  
             
@@ -72,7 +73,7 @@ public class burner_thread implements Runnable{
     
     public void interrupt() {
         if(t.isAlive())
-        t.interrupt();
+        p.destroy();
     }
     
     public boolean getFinished(){
